@@ -1,0 +1,69 @@
+﻿@model CustomerContactManager.Models.Customer
+
+@{
+    ViewBag.Title = "Customer";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Customer Info</h2>
+
+<br />
+
+<div class="row">
+    <div class="col-lg-6 col-xs-6">
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Name)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Name)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Longitude)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Longitude)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Latitude)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.Latitude)
+                </td>
+            </tr>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.DateCreated)
+                </th>
+                <td>
+                    @Html.DisplayFor(model => model.DateCreated)
+                </td>
+            </tr>
+
+        </table>
+    </div>
+</div>
+
+<br />
+
+<h4>Cutomer Contacts</h4>
+<div class="col-lg-4 col-xs-4">
+    <table class="table table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Contact Number</th>
+                <th>Date Created</th>
+            </tr>
+        </thead>
+</table>
+</div>
+
+
+

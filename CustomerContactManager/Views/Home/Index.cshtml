@@ -1,0 +1,62 @@
+﻿<br />
+
+<div class="row">
+    <div class="col-xs-3 col-lg-3">
+        <form action="/Customer/CustomerCreate" class="btn">
+            <input type="submit" value="Create New Customer">
+        </form>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-xs-12 col-lg-12">
+        <div class="row">
+            <table id="custTable" class="table table-hover table-bordered">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Latitude</th>
+                        <th>Longitude</th>
+                        <th>Created</th>
+                    </tr>
+                </thead>
+                <tbody id="custTableBody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<script>
+    var json;
+    var CustomerURL = '/customer/customer/';
+    var HomeUrl = 'http://localhost:64881/';
+    var CustomerAPIUrl = HomeUrl + 'api/customerAPI';
+
+    $(document).ready(function () {
+        $.getJSON(CustomerAPIUrl, function (jd) {
+
+            json = jd;
+
+            $.each(json, function (index, model) {
+
+                $('#custTable > tbody:last').append('<tr"><td><a href="' + CustomerURL + model.ID + '">'
+                    + model.Name + '</a></td><td>'
+                    + model.Latitude + '</td><td>'
+                    + model.Longitude + '</td><td>'
+                    + model.DateCreated + '</td></tr>');
+            });
+        });
+
+    });
+</script>
+
+<script>
+    $('tr').click(function () {
+        //location.href='/customer/customer/' ;
+        console.log('test');
+    });
+</script>

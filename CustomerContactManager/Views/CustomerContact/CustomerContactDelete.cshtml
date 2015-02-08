@@ -1,9 +1,85 @@
-﻿@model CustomerContactManager.Models.CustomerContact
-
-@{
+﻿@{
     ViewBag.Title = "CustomerContactDelete";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Delete Contact</h2>
 
+<div class="row">
+    <div class="col-lg-7 col-xs-7">
+        <h3>Are you sure you want to delete this contact for Customer: </h3>
+    </div>
+    <div class="col-lg-3 col-xs-3">
+        <h3 id="CustName"></h3>
+    </div>
+</div>
+
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-xs-6">
+           <dl class="dl-horizontal">
+               <dt>Name</dt>
+               <dd id="ContName"></dd>
+               <dt>Email</dt>
+               <dd id="ContEmail"></dd>
+               <dt>Contact Number</dt>
+               <dd id="ContContactNo"></dd>
+               <dt>Date Created</dt>
+               <dd id="ContCreationdate"></dd>
+           </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-xs-3">
+            <button class="btn-danger" id="btnDelete">Delete Contact</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    var json;
+    var URLItems = window.location.pathname.split('/');
+    var ContID = URLItems[3];
+    var APIUrl = 'http://localhost:64881/api/customerContactAPI/' + ContID;
+    var HomeUrl = 'http://localhost:64881/';
+    var CustomerID = '';
+    var CustomerURL = HomeUrl + 'Customer/Customer/';
+    var ContactURL = 'CustomerContact/CustomerContact/';
+
+    $(document).ready(function () {
+        $.getJSON(APIUrl, function (jd) {
+            json = jd;
+
+            $('#ContName').text(json.Name);
+            $('#ContEmail').text(json.Email);
+            $('#ContContactNo').text(json.ContactNumber);
+            $('#ContCreationdate').text(json.DateCreated);
+            console.log(json);
+
+            $('#CustName').text(json.Customer.Name)
+
+            CustomerID = json.Customer.ID;
+        });
+        
+        console.log();
+
+        //$('#deletebtn').each(function () {
+        //    $(this).attr("action", $(this).attr("action") + '/' + contid);
+        //});
+    });
+
+    $('#btnDelete').click(function () {
+        $.ajax({
+            url: APIUrl,
+            type: 'DELETE',
+            success: function (result) {
+                alert('Contact deleted');
+                window.location.replace(CustomerURL + CustomerID);
+            }
+        });
+    });
+
+
+</script>

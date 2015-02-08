@@ -52,6 +52,14 @@ namespace CustomerContactManager.Controllers
         // DELETE: api/CustomerContact/5
         public void Delete(int id)
         {
+            CustomerContactManagerContext cx = new CustomerContactManagerContext();
+            CustomerContact DelCont = cx.CustomerContacts.Find(id);
+
+            if(DelCont == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            cx.CustomerContacts.Remove(DelCont);
+            cx.SaveChanges();
         }
     }
 }

@@ -12,8 +12,8 @@
 <br />
 
 <div class="row">
-    <div class="form-group">
-        <label class="control-label col-lg-2">Name</label>
+    <div class="form-group" id="inputForm">
+        <label class="control-label col-lg-2">Name (required, at least 2 characters)</label>
         <div class="col-md-10">
             <div class="col-lg-3">
                 <input class="text-box single-line" id="inName" placeholder="Customer Name" type="text" />
@@ -69,6 +69,8 @@
     var APIUrl = 'http://localhost:64881/api/customerContactAPI/' + ContID;
     var HomeUrl = 'http://localhost:64881/';
     var CustomerURL = HomeUrl + 'Customer/Customer/' + ContID;
+
+    $('#inputForm').validate();
 
     $(document).ready(function () {
         $.getJSON(APIUrl, function (jd) {

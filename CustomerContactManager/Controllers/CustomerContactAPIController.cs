@@ -27,6 +27,7 @@ namespace CustomerContactManager.Controllers
         {
             CustomerContactManagerContext cx = new CustomerContactManagerContext();
 
+
             var customerContacts = cx.CustomerContacts;
             var contact = (from v in customerContacts
                             where v.ID == id
@@ -45,6 +46,7 @@ namespace CustomerContactManager.Controllers
             CustomerContactManagerContext cx = new CustomerContactManagerContext();
             var contacts = cx.CustomerContacts;
             CustomerContact cont = contacts.Where(x => x.ID == Contact.ID).FirstOrDefault();
+            
 
             if (cont == null)
             {
@@ -56,6 +58,7 @@ namespace CustomerContactManager.Controllers
             }
             else
             {
+                
                 cont.DateModified = DateTime.Now;
                 cont.Name = Contact.Name;
                 cont.Email = Contact.Email;

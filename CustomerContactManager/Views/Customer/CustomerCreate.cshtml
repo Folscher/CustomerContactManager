@@ -10,70 +10,63 @@
 <div class="container">
     
     <br />
-    
-    <div class="row">
-        <div class="form-group">
+    <form id="inputForm">
+        <div class="row">
             <label class="control-label col-lg-2">Name</label>
             <div class="col-md-10">
                 <div class="col-lg-3">
-                    <input class="text-box single-line" id="inName" placeholder="Customer Name" type="text" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+                    <input class="text-box single-line" id="inName" placeholder="Customer Name" type="text" minLength ="2" required/>
                 </div>
             </div>
+
         </div>
-    </div>
 
-    <br />
+        <br />
 
-    <div class="row">
-        <div class="form-group">
+        <div class="row">
             <label class="control-label col-lg-2">Latitude</label>
             <div class="col-md-10">
                 <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLatitudeDegrees" placeholder="Degrees" type="number" />
-                    <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+                    <input class="text-box single-line" id="inLatitudeDegrees" placeholder="Degrees" type="number" required />
                 </div>
                 <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLatitudeMinutes" placeholder="Minutes" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+                    <input class="text-box single-line" id="inLatitudeMinutes" placeholder="Minutes" type="number" required />
                 </div>
                 <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLatitudeSeconds" placeholder="Seconds" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+                    <input class="text-box single-line" id="inLatitudeSeconds" placeholder="Seconds" type="number" required />
                 </div>
             </div>
         </div>
-    </div>
 
-    <br />
+        <br />
 
-    <div class="row">
-        <div class="form-group">
-            <label class="control-label col-md-2">Longitude</label>
-            <div class="col-md-10">
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLongitudeDegrees" placeholder="Degrees" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+        <div class="row">
+
+                <label class="control-label col-md-2">Longitude</label>
+                <div class="col-md-10">
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inLongitudeDegrees" placeholder="Degrees" type="number" required />
+                    </div>
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inLongitudeMinutes" placeholder="Minutes" type="number" required />
+                    </div>
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inLongitudeSeconds" placeholder="Seconds" type="number" required />
+                    </div>
                 </div>
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLongitudeMinutes" placeholder="Minutes" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
-                </div>
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLongitudeSeconds" placeholder="Seconds" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
-                </div>
-            </div>
+
         </div>
-    </div>
 
+        <input type="submit" value="Create New Customer">
+
+    </form>
     <br />
 
-    <div class="row">
+    @*<div class="row">
         <div class="col-lg-3 col-xs-3">
             <button id="btnCreate">Create Customer</button>
         </div>
-    </div>
+    </div>*@
 
 </div>
 
@@ -86,14 +79,25 @@
     var ClientUrl = 'http://localhost:64881/';
     var ContactURL = 'CustomerContact/CustomerContact/';
 
-    $('#btnCreate').click(function () {
-        
+    $('#inputForm').validate();
+
+    $('#inputForm').valid();
+
+    $('#inputForm').submit(function () {
+
         var Name = $('#inName').val();
-        var Latitude = $('#inLatitudeDegrees').val() + ',' + $('#inLatitudeMinutes').val() + ',' + $('#inLatitudeSeconds').val();
-        var Longitude = $('#inLongitudeDegrees').val() + ',' + $('#inLongitudeMinutes').val() + ',' + $('#inLongitudeSeconds').val();
+        var LatDeg = $('#inLatitudeDegrees').val();
+        var LatMin =  $('#inLatitudeMinutes').val();
+        var LatSec =  $('#inLatitudeSeconds').val();
+        var LongDeg =  $('#inLongitudeDegrees').val();
+        var LongMin =  $('#inLongitudeMinutes').val();
+        var LongSec = $('#inLongitudeSeconds').val();
+
+        var Latitude = LatDeg + ',' + LatMin + ',' + LatSec;
+        var Longitude = LongDeg + ',' + LongMin + ',' + LongSec;
         var Customer = {Name: Name, Latitude: Latitude, Longitude: Longitude};
 
-        console.log(Customer);
+        console.log('working');
 
         $.ajax({
             url: APIUrl,
@@ -108,6 +112,8 @@
                 window.location.replace(ClientUrl);
             }
         });
+        
+        
         //});
     });
 

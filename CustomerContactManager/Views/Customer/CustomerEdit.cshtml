@@ -1,9 +1,135 @@
-﻿@model CustomerContactManager.Models.Customer
-
-@{
+﻿@{
     ViewBag.Title = "CustomerEdit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Edit Customer</h2>
+
+<div class="container">
+
+    <br />
+
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-lg-2">Name</label>
+            <div class="col-md-10">
+                <div class="col-lg-3">
+                    <input class="text-box single-line" id="inName" placeholder="Customer Name" type="text" />
+                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-lg-2">Latitude</label>
+            <div class="col-md-10">
+                <div class="col-lg-3">
+                    <input class="text-box single-line" id="inLatitudeDegrees" type="number" />
+                    <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
+                </div>
+                <div class="col-lg-3">
+                    <input class="text-box single-line" id="inLatitudeMinutes" type="number" />
+                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+                </div>
+                <div class="col-lg-3">
+                    <input class="text-box single-line" id="inLatitudeSeconds" type="number" />
+                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="form-group">
+            <label class="control-label col-md-2">Longitude</label>
+            <div class="col-md-10">
+                <div class="col-lg-3">
+                    <input class="text-box single-line" id="inLongitudeDegrees" type="number" />
+                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+                </div>
+                <div class="col-lg-3">
+                    <input class="text-box single-line" id="inLongitudeMinutes" type="number" />
+                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+                </div>
+                <div class="col-lg-3">
+                    <input class="text-box single-line" id="inLongitudeSeconds" type="number" />
+                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <br />
+
+    <div class="row">
+        <div class="col-lg-3 col-xs-3">
+            <button id="btnEdit">Edit Customer</button>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    var json;
+
+    var URLItems = window.location.pathname.split('/');
+    var CustID = URLItems[3];
+    var APIUrl = 'http://localhost:64881/api/customerAPI/' + CustID;
+    var HomeUrl = 'http://localhost:64881/';
+    var CustomerURL = HomeUrl + 'Customer/Customer/' + CustID;
+
+    $(document).ready(function () {
+        $.getJSON(APIUrl, function (jd) {
+            
+            json = jd;
+            console.log(json);
+            var LatitudeArr = json.Latitude.split(',');
+            var LongitudeArr = json.Latitude.split(',');
+            
+
+            $('#inName').val(json.Name);
+
+            $('#inLatitudeDegrees').val(LatitudeArr[0]);
+            $('#inLatitudeMinutes').val(LatitudeArr[1]);
+            $('#inLatitudeSeconds').val(LatitudeArr[2]);
+
+            $('#inLongitudeDegrees').val(LongitudeArr[0]);
+            $('#inLongitudeMinutes').val(LongitudeArr[1]);
+            $('#inLongitudeSeconds').val(LongitudeArr[2]);
+
+        });
+
+        $('#btnEdit').click(function () {
+
+            var Name = $('#inName').val();
+            var Latitude = $('#inLatitudeDegrees').val() + ',' + $('#inLatitudeMinutes').val() + ',' + $('#inLatitudeSeconds').val();
+            var Longitude = $('#inLongitudeDegrees').val() + ',' + $('#inLongitudeMinutes').val() + ',' + $('#inLongitudeSeconds').val();
+            var Customer = { ID: CustID, Name: Name, Latitude: Latitude, Longitude: Longitude };
+
+            console.log(Customer);
+
+            $.ajax({
+                url: APIUrl,
+                type: 'POST',
+                data: Customer,
+                success: function (result) {
+                    alert('Customer Edited');
+                    window.location.replace(CustomerURL);
+                },
+                error: function (result) {
+                    alert('Fail');
+                    window.location.replace(CustomerURL);
+                }
+            });
+            //});
+        });
+    });
+</script>
+
 

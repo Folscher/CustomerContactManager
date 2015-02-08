@@ -46,16 +46,22 @@ namespace CustomerContactManager.Controllers
             var customers = cx.Customers;
             Customer cust = customers.Where(x => x.ID == customer.ID).FirstOrDefault();
 
-            if (cust != null)
+            if (cust == null)
             {
-                cust.Latitude = customer.Latitude;
-                cust.Longitude = customer.Longitude;
-                cust.Name = customer.Name;
-                cust.DateModified = DateTime.Now;
+                customer.DateCreated = DateTime.Now;
+                customer.DateModified = DateTime.Now;
+
+                cx.Customers.Add(customer);
+                cx.SaveChanges();
             }
             else
             {
-                cx.Customers.Add(customer);
+                cust.DateModified = DateTime.Now;
+                cust.Name = customer.Name;
+                cust.Longitude = customer.Longitude;
+                cust.Latitude = customer.Latitude;
+
+                cx.SaveChanges();
             }
         }
 
@@ -67,22 +73,30 @@ namespace CustomerContactManager.Controllers
         // DELETE: api/Customer/5
         public void Delete(int id)
         {
-            CustomerContactManagerContext cx = new CustomerContactManagerContext();
-            Customer cust = cx.Customers.Find(id);
+            try
+            {
+                CustomerContactManagerContext cx = new CustomerContactManagerContext();
+                Customer cust = cx.Customers.Find(id);
+                List<CustomerContact> contactToDelete = cust.CustomerContacts.ToList();
 
-            if (cust.CustomerContacts.Count == 0)
-            {
-                cx.Customers.Remove(cust);
-            }
-            else
-            {
-                foreach (CustomerContact cont in cust.CustomerContacts)
+                if (contactToDelete.Count == 0)
                 {
-                    cx.CustomerContacts.Remove(cont);
+                    cx.Customers.Remove(cust);
                 }
-                cx.Customers.Remove(cust);
+                else
+                {
+                    foreach (CustomerContact cont in contactToDelete)
+                    {
+                        cx.CustomerContacts.Remove(cont);
+                    }
+                    cx.Customers.Remove(cust);
+                }
+                cx.SaveChanges();
             }
-            cx.SaveChanges();
+            catch (Exception e)
+            {
+                string test = "";
+            }
         }
     }
 }

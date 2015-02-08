@@ -28,21 +28,21 @@ namespace CustomerContactManager.DAL
                 new CustomerContact{CustomerID=1,Name="Pete",Email="Pete@gmail.com",ContactNumber = "6547893210",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
                 new CustomerContact{CustomerID=1,Name="Desmon",Email="Desmon@gmail.com",ContactNumber = "3214569870",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
                                                        
-                new CustomerContact{CustomerID=2,Name="Simon",Email="Simon@gmail.com",ContactNumber = "1234567890",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
-                new CustomerContact{CustomerID=2,Name="Colin",Email="Colin@gmail.com",ContactNumber = "0987654321",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
-                new CustomerContact{CustomerID=2,Name="Pete",Email="Pete@gmail.com",ContactNumber = "6547893210",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=2,Name="Sarah",Email="Sarah@gmail.com",ContactNumber = "1234567890",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=2,Name="Susie",Email="Susie@gmail.com",ContactNumber = "0987654321",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=2,Name="Tara",Email="Tara@gmail.com",ContactNumber = "6547893210",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
                                                        
-                new CustomerContact{CustomerID=3,Name="Simon",Email="Simon@gmail.com",ContactNumber = "1234567890",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
-                new CustomerContact{CustomerID=3,Name="Colin",Email="Colin@gmail.com",ContactNumber = "0987654321",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
-                new CustomerContact{CustomerID=3,Name="Pete",Email="Pete@gmail.com",ContactNumber = "6547893210",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
-                new CustomerContact{CustomerID=3,Name="Desmon",Email="Desmon@gmail.com",ContactNumber = "3214569870",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=3,Name="Tessa",Email="Tessa@gmail.com",ContactNumber = "1234567890",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=3,Name="Linus",Email="Linus@gmail.com",ContactNumber = "0987654321",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=3,Name="Letti",Email="Letti@gmail.com",ContactNumber = "6547893210",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=3,Name="OumaDol",Email="OumaDol@gmail.com",ContactNumber = "3214569870",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
                 new CustomerContact{CustomerID=3,Name="Frik",Email="Frik@gmail.com",ContactNumber = "1237890654",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
                                                        
-                new CustomerContact{CustomerID=4,Name="Simon",Email="Simon@gmail.com",ContactNumber = "1234567890",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
-                new CustomerContact{CustomerID=4,Name="Colin",Email="Colin@gmail.com",ContactNumber = "0987654321",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
-                new CustomerContact{CustomerID=4,Name="Pete",Email="Pete@gmail.com",ContactNumber = "6547893210",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
-                new CustomerContact{CustomerID=4,Name="Desmon",Email="Desmon@gmail.com",ContactNumber = "3214569870",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
-                new CustomerContact{CustomerID=4,Name="Frik",Email="Frik@gmail.com",ContactNumber = "1237890654",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=4,Name="Foo",Email="Foo@gmail.com",ContactNumber = "1234567890",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=4,Name="Bar",Email="Bar@gmail.com",ContactNumber = "0987654321",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=4,Name="Set",Email="Set@gmail.com",ContactNumber = "6547893210",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=4,Name="John",Email="John@gmail.com",ContactNumber = "3214569870",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
+                new CustomerContact{CustomerID=4,Name="Les",Email="Les@gmail.com",ContactNumber = "1237890654",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
                 new CustomerContact{CustomerID=4,Name="Edd",Email="Edd@gmail.com",ContactNumber = "9871236540",DateCreated = DateTime.Now, DateModified = DateTime.Now.Date},
 
             };

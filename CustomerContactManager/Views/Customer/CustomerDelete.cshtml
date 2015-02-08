@@ -1,5 +1,4 @@
-﻿@model CustomerContactManager.Models.Customer
-
+﻿
 @{
     ViewBag.Title = "CustomerDelete";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -7,3 +6,67 @@
 
 <h2>Delete Customer</h2>
 
+
+<div class="row">
+    <h3>Warning! Deleting this customer will delete all of their contacts as well.</h3>
+</div>
+
+<br />
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-xs-6">
+            <dl class="dl-horizontal">
+                <dt>Name</dt>
+                <dd id="CustName"></dd>
+                <dt>Longitude</dt>
+                <dd id="CustLongitude"></dd>
+                <dt>Latitude</dt>
+                <dd id="CustLatitude"></dd>
+                <dt>Created on</dt>
+                <dd id="CustCreationdate"></dd>
+            </dl>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-xs-3">
+            <button class="btn-danger" id="btnDelete">Delete Contact</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    var json;
+    var URLItems = window.location.pathname.split('/');
+    var CustID = URLItems[3];
+    var APIUrl = 'http://localhost:64881/api/customerAPI/' + CustID;
+    var HomeUrl = 'http://localhost:64881/';
+    var CustomerURL = HomeUrl + 'Customer/Customer/';
+
+    $(document).ready(function () {
+        $.getJSON(APIUrl, function (jd) {
+            json = jd;
+
+            $('#CustName').text(json.Name);
+            $('#CustLongitude').text(json.Longitude);
+            $('#CustLatitude').text(json.Latitude);
+            $('#CustCreationdate').text(json.DateCreated);
+            console.log(json);
+
+
+        });
+    });
+
+    $('#btnDelete').click(function () {
+        $.ajax({
+            url: APIUrl,
+            type: 'DELETE',
+            success: function (result) {
+                alert('Customer deleted');
+                window.location.replace(HomeUrl);
+            }
+        });
+    });
+
+
+</script>

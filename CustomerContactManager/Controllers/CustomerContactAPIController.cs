@@ -40,8 +40,29 @@ namespace CustomerContactManager.Controllers
         }
 
         // POST: api/CustomerContact
-        public void Post([FromBody]string value)
+        public void Post([FromBody]CustomerContact Contact)
         {
+            CustomerContactManagerContext cx = new CustomerContactManagerContext();
+            var contacts = cx.CustomerContacts;
+            CustomerContact cont = contacts.Where(x => x.ID == Contact.ID).FirstOrDefault();
+
+            if (cont == null)
+            {
+                Contact.DateCreated = DateTime.Now;
+                Contact.DateModified = DateTime.Now;
+
+                cx.CustomerContacts.Add(Contact);
+                cx.SaveChanges();
+            }
+            else
+            {
+                cont.DateModified = DateTime.Now;
+                cont.Name = Contact.Name;
+                cont.Email = Contact.Email;
+                cont.ContactNumber = Contact.ContactNumber;
+
+                cx.SaveChanges();
+            }
         }
 
         // PUT: api/CustomerContact/5

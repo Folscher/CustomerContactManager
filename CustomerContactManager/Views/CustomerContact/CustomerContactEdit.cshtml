@@ -7,3 +7,105 @@
 
 <h2>Edit Contact</h2>
 
+<div class="container">
+
+<br />
+
+<div class="row">
+    <div class="form-group">
+        <label class="control-label col-lg-2">Name</label>
+        <div class="col-md-10">
+            <div class="col-lg-3">
+                <input class="text-box single-line" id="inName" placeholder="Customer Name" type="text" />
+                @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="form-group">
+        <label class="control-label col-lg-2">Email</label>
+        <div class="col-md-10">
+            <div class="col-lg-3">
+                <input class="text-box single-line" id="inEmail" placeholder="Email" type="text" />
+                @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="form-group">
+        <label class="control-label col-lg-2">Customer Number</label>
+        <div class="col-md-10">
+            <div class="col-lg-3">
+                <input class="text-box single-line" id="inContact" placeholder="Customer Contact" type="number" />
+                @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<div class="row">
+    <div class="col-lg-3 col-xs-3">
+        <button id="btnEdit">Edit Customer Contact</button>
+    </div>
+</div>
+
+</div>
+
+<script>
+    var json;
+
+    var URLItems = window.location.pathname.split('/');
+    var ContID = URLItems[3];
+    var APIUrl = 'http://localhost:64881/api/customerContactAPI/' + ContID;
+    var HomeUrl = 'http://localhost:64881/';
+    var CustomerURL = HomeUrl + 'Customer/Customer/' + ContID;
+
+    $(document).ready(function () {
+        $.getJSON(APIUrl, function (jd) {
+
+            json = jd;
+            console.log(json);
+
+            $('#inName').val(json.Name);
+            $('#inEmail').val(json.Email);
+            $('#inContact').val(json.ContactNumber);
+
+        });
+
+        $('#btnEdit').click(function () {
+
+            var Name = $('#inName').val();
+            var Email = $('#inEmail').val();
+            var ContactNo = $('#inContact').val();
+           
+            var Contact = { ID: ContID, Name: Name, Email: Email, ContactNumber: ContactNo };
+
+            $.ajax({
+                url: APIUrl,
+                type: 'POST',
+                data: Contact,
+                success: function (result) {
+                    alert('Contact Edited');
+                    window.location.replace(CustomerURL);
+                },
+                error: function (result) {
+                    alert('Fail');
+                    window.location.replace(CustomerURL);
+                }
+            });
+            //});
+        });
+    });
+</script>
+
+

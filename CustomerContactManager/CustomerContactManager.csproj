@@ -231,10 +231,10 @@
     <Content Include="Views\Customer\CustomerCreate.cshtml" />
     <Content Include="Views\Customer\CustomerDelete.cshtml" />
     <Content Include="Views\Customer\CustomerEdit.cshtml" />
-    <Content Include="Views\CusomerContact\CustomerContact.cshtml" />
-    <Content Include="Views\CusomerContact\CustomerContactEdit.cshtml" />
-    <Content Include="Views\CusomerContact\CustomerContactDelete.cshtml" />
-    <Content Include="Views\CusomerContact\CustomerContactCreate.cshtml" />
+    <Content Include="Views\CustomerContact\CustomerContact.cshtml" />
+    <Content Include="Views\CustomerContact\CustomerContactEdit.cshtml" />
+    <Content Include="Views\CustomerContact\CustomerContactDelete.cshtml" />
+    <Content Include="Views\CustomerContact\CustomerContactCreate.cshtml" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

@@ -9,61 +9,116 @@
 
 <br />
 
-<div class="row">
-    <div class="col-lg-6 col-xs-6">
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Name)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Name)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Longitude)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Longitude)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Latitude)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.Latitude)
-                </td>
-            </tr>
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.DateCreated)
-                </th>
-                <td>
-                    @Html.DisplayFor(model => model.DateCreated)
-                </td>
-            </tr>
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-xs-6">
+            <table class="table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <td id="CustName"></td>
+                </tr>
+                <tr>
+                    <th>
+                        Longitude
+                    </th>
+                    <td id="CustLong"></td>
+                </tr>
+                <tr>
+                    <th>
+                        Latitude
+                    </th>
+                    <td id="CustLat"></td>
+                </tr>
+                <tr>
+                    <th>
+                        Created on
+                    </th>
+                    <td id="CustCreationdate"></td>
+                </tr>
 
-        </table>
+            </table>
+
+            <div class="row">
+                <div class="col-lg-3 col-xs-3">
+                    <form action="/Customer/CustomerEdit" class="btn">
+                        <input type="submit" value="Edit Customer">
+                    </form>
+                </div>
+                <div class="col-lg-3 col-xs-3">
+                    <form action="/Customer/CustomerDelete" class="btn">
+                        <input type="submit" value="Delete Customer">
+                    </form>
+                </div>
+            </div>
+    </div>
+        
+    </div>
+    <br />
+
+    <h4>Cutomer Contacts</h4>
+    <row>
+        <div class="col-lg-4 col-xs-4">
+            <table id="contactTable" class="table table-bordered table-hover">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Contact Number</th>
+                        <th>Date Created</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
+    </row>
+</div>
+
+<div class="row">
+    <div class="col-lg-3 col-xs-3">
+        <form action="/Customer/CustomerCreate" class="btn">
+            <input type="submit" value="Create New Contact">
+        </form>
     </div>
 </div>
 
 <br />
 
-<h4>Cutomer Contacts</h4>
-<div class="col-lg-4 col-xs-4">
-    <table class="table table-bordered table-hover">
-        <thead>
-            <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Contact Number</th>
-                <th>Date Created</th>
-            </tr>
-        </thead>
-</table>
-</div>
+<script>
+    var json;
 
+    var URLItems = window.location.pathname.split('/');
+    var CustID = URLItems[3];
+    var APIUrl = 'http://localhost:64881/api/customerAPI/' + CustID;
+    var ClientUrl = 'http://localhost:64881/';
+    var ContactURL = 'CustomerContact/CustomerContact/';
+
+    $(document).ready(function () {
+        $.getJSON(APIUrl, function (jd) {
+            json = jd;
+            $('#CustName').text(json.Name);
+            $('#CustLat').text(json.Latitude);
+            $('#CustLong').text(json.Longitude);
+            $('#CustCreationdate').text(json.DateCreated);
+            console.log(json);
+
+            var contacts = json.CustomerContacts;
+            console.log(contacts);
+
+            $.each(contacts, function (index, model) {
+                var index = index + 1;
+                $('#contactTable > tbody:last').append('<tr"><td><a href="' + ClientUrl + ContactURL + model.ID + '">'
+                    + model.Name + '</a></td><td>'
+                    + model.Email + '</td><td>'
+                    + model.ContactNumber + '</td><td>'
+                    + model.DateCreated + '</td></tr>');
+            });
+
+        });
+
+    });
+
+</script>
 
 

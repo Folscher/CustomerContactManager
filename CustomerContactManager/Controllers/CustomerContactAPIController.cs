@@ -12,22 +12,31 @@ namespace CustomerContactManager.Controllers
     public class CustomerContactAPIController : ApiController
     {
         // GET: api/CustomerContact
-        public List<CustomerContact> Get()
+        public List<CustomerContact> GetCustomerContact()
         {
             CustomerContactManagerContext cx = new CustomerContactManagerContext();
 
             var customerContacts = cx.CustomerContacts;
             List<CustomerContact> contacts = customerContacts.ToList();
             
-
-
             return contacts;
         }
 
         // GET: api/CustomerContact/5
-        public string Get(int id)
+        public CustomerContact GetCustomerContact(int id)
         {
-            return "value";
+            CustomerContactManagerContext cx = new CustomerContactManagerContext();
+
+            var customerContacts = cx.CustomerContacts;
+            var contact = (from v in customerContacts
+                            where v.ID == id
+                            select v).FirstOrDefault();
+
+            if(contact == null)
+                throw new HttpResponseException(HttpStatusCode.NotFound);
+
+            return contact;
+            
         }
 
         // POST: api/CustomerContact

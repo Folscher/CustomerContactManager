@@ -12,23 +12,12 @@ namespace CustomerContactManager.Controllers
 {
     public class CustomerController : Controller
     {
-        public ActionResult Customer(int id)
+        public ActionResult Customer()
         {
-            CustomerContactManagerContext cx = new CustomerContactManagerContext();
-            var custs = cx.Customers;
-
-            Customer c = (from v in custs
-                          where v.ID == id
-                          select v).FirstOrDefault();
-
-            if (custs == null)
-                throw new HttpResponseException(HttpStatusCode.NotFound);
-
-
-            return View(c);
+            return View();
         }
 
-        public ActionResult CustomerCreate(int id)
+        public ActionResult CustomerCreate()
         {
             return View();
         }

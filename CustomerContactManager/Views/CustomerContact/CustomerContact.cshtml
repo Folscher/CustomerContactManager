@@ -1,0 +1,87 @@
+﻿@{
+    ViewBag.Title = "CustomerContact";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Contact Detail</h2>
+
+<h4></h4>
+
+<div class="container">
+    <div class="row">
+        <div class="col-lg-6 col-xs-6">
+            <table class="table">
+                <tr>
+                    <th>
+                        Name
+                    </th>
+                    <td id="ContName"></td>
+                </tr>
+                <tr>
+                    <th>
+                        Email
+                    </th>
+                    <td id="ContEmail"></td>
+                </tr>
+                <tr>
+                    <th>
+                        Contact Number
+                    </th>
+                    <td id="ContContactNo"></td>
+                </tr>
+                <tr>
+                    <th>
+                        Created on
+                    </th>
+                    <td id="ContCreationdate"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-3 col-xs-3">
+            <form action="/CustomerContact/CustomerContactEdit" class="btn" id="editBtn">
+                <input type="submit" value="Edit Contact">
+            </form>
+        </div>
+        <div class="col-lg-3 col-xs-3">
+            <form action="/CustomerContact/CustomerContactDelete" class="btn" id="deleteBtn">
+                <input type="submit" value="Delete Contact">
+            </form>
+        </div>
+    </div>
+</div>
+
+<br />
+
+<script>
+    var json;
+    var URLItems = window.location.pathname.split('/');
+    var CustID = URLItems[3];
+    var APIUrl = 'http://localhost:64881/api/customerContactAPI/' + CustID;
+    var ClientUrl = 'http://localhost:64881';
+    var ContactURL = 'CustomerContact/CustomerContact/';
+
+    $(document).ready(function () {
+        $.getJSON(APIUrl, function (jd) {
+            json = jd;
+            
+            $('#ContName').text(json.Name);
+            $('#ContEmail').text(json.Email);
+            $('#ContContactNo').text(json.ContactNumber);
+            $('#ContCreationdate').text(json.DateCreated);
+            console.log(json);
+        });
+
+        console.log(CustID);
+        
+        $('#editBtn').each(function () {
+            $(this).attr("action", $(this).attr("action") + '/' + CustID);
+        });
+
+        $('#deleteBtn').each(function () {
+            $(this).attr("action", $(this).attr("action") + '/' + CustID);
+        });
+    });
+
+</script>

@@ -12,7 +12,7 @@ namespace CustomerContactManager.Controllers
     public class CustomerAPIController : ApiController
     {
         // GET: api/Customer
-        public List<Customer> Get()
+        public List<Customer> GetCusomters()
         {
             CustomerContactManagerContext cx = new CustomerContactManagerContext();
             var customers = cx.Customers;
@@ -25,7 +25,7 @@ namespace CustomerContactManager.Controllers
         }
 
         // GET: api/Customer/5
-        public Customer Get(int id)
+        public Customer GetCustomer(int id)
         {
             CustomerContactManagerContext cx = new CustomerContactManagerContext();
             var customers = cx.Customers;

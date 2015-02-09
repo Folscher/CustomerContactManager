@@ -58,6 +58,8 @@
             </div>
         </div>
 
+        <br />
+
         <input type="submit" value="Edit Customer">
 
     </form>
@@ -85,7 +87,7 @@
             json = jd;
             console.log(json);
             var LatitudeArr = json.Latitude.split(',');
-            var LongitudeArr = json.Latitude.split(',');
+            var LongitudeArr = json.Longitude.split(',');
             
 
             $('#inName').val(json.Name);

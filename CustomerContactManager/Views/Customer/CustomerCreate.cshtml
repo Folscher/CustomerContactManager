@@ -57,16 +57,13 @@
 
         </div>
 
+        <br />
+
         <input type="submit" value="Create New Customer">
 
     </form>
     <br />
 
-    @*<div class="row">
-        <div class="col-lg-3 col-xs-3">
-            <button id="btnCreate">Create Customer</button>
-        </div>
-    </div>*@
 
 </div>
 
@@ -75,16 +72,18 @@
 
     var URLItems = window.location.pathname.split('/');
     var CustID = URLItems[3];
-    var APIUrl = 'http://localhost:64881/api/customerAPI/';
-    var ClientUrl = 'http://localhost:64881/';
+
+    var pathArray = window.location.href.split('/');
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    var HomeUrl = protocol + '//' + host + '/';
+
+    var APIUrl = HomeUrl + 'api/customerAPI/';
     var ContactURL = 'CustomerContact/CustomerContact/';
 
-    $('#inputForm').validate();
+    $('#inputForm').on('submit',function (e) {
 
-    $('#inputForm').valid();
-
-    $('#inputForm').submit(function () {
-
+        e.preventDefault();
         var Name = $('#inName').val();
         var LatDeg = $('#inLatitudeDegrees').val();
         var LatMin =  $('#inLatitudeMinutes').val();
@@ -97,26 +96,20 @@
         var Longitude = LongDeg + ',' + LongMin + ',' + LongSec;
         var Customer = {Name: Name, Latitude: Latitude, Longitude: Longitude};
 
-        console.log('working');
-
         $.ajax({
             url: APIUrl,
             type: 'POST',
             data: Customer,
             success: function (result) {
                 alert('Customer Created');
-                window.location.replace(ClientUrl);
+                window.location.replace(HomeUrl);
             },
             error: function (result) {
                 alert('Fail');
-                window.location.replace(ClientUrl);
+                window.location.replace(HomeUrl);
             }
         });
-        
-        
-        //});
     });
-
 </script>
 
 

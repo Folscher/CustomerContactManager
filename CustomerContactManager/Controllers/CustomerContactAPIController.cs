@@ -11,7 +11,6 @@ namespace CustomerContactManager.Controllers
 {
     public class CustomerContactAPIController : ApiController
     {
-        // GET: api/CustomerContact
         public List<CustomerContact> GetCustomerContact()
         {
             CustomerContactManagerContext cx = new CustomerContactManagerContext();
@@ -22,7 +21,6 @@ namespace CustomerContactManager.Controllers
             return contacts;
         }
 
-        // GET: api/CustomerContact/5
         public CustomerContact GetCustomerContact(int id)
         {
             CustomerContactManagerContext cx = new CustomerContactManagerContext();
@@ -40,7 +38,6 @@ namespace CustomerContactManager.Controllers
             
         }
 
-        // POST: api/CustomerContact
         public void Post([FromBody]CustomerContact Contact)
         {
             CustomerContactManagerContext cx = new CustomerContactManagerContext();
@@ -68,12 +65,10 @@ namespace CustomerContactManager.Controllers
             }
         }
 
-        // PUT: api/CustomerContact/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/CustomerContact/5
         public void Delete(int id)
         {
             CustomerContactManagerContext cx = new CustomerContactManagerContext();

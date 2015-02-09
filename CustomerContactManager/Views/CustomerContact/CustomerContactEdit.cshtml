@@ -10,54 +10,50 @@
 <div class="container">
 
 <br />
-
-<div class="row">
-    <div class="form-group" id="inputForm">
-        <label class="control-label col-lg-2">Name (required, at least 2 characters)</label>
-        <div class="col-md-10">
-            <div class="col-lg-3">
-                <input class="text-box single-line" id="inName" placeholder="Customer Name" type="text" />
-                @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+    <form id="inputForm">
+        <div class="row">
+            <div class="form-group" id="inputForm">
+                <label class="control-label col-lg-2">Name</label>
+                <div class="col-md-10">
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inName" placeholder="Customer Name" type="text" minlength="2" required />
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<br />
+        <br />
 
-<div class="row">
-    <div class="form-group">
-        <label class="control-label col-lg-2">Email</label>
-        <div class="col-md-10">
-            <div class="col-lg-3">
-                <input class="text-box single-line" id="inEmail" placeholder="Email" type="text" />
-                @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-lg-2">Email</label>
+                <div class="col-md-10">
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inEmail" placeholder="Email" type="email" required />
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<br />
+        <br />
 
-<div class="row">
-    <div class="form-group">
-        <label class="control-label col-lg-2">Customer Number</label>
-        <div class="col-md-10">
-            <div class="col-lg-3">
-                <input class="text-box single-line" id="inContact" placeholder="Customer Contact" type="number" />
-                @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-lg-2">Customer Number</label>
+                <div class="col-md-10">
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inContact" placeholder="Customer Contact" type="number" minlength="10" required />
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
 
-<br />
+        <br />
 
-<div class="row">
-    <div class="col-lg-3 col-xs-3">
-        <button id="btnEdit">Edit Customer Contact</button>
-    </div>
-</div>
+        <input type="submit" value="Edit Customer Contact">
+
+    </form>
+        <br />
 
 </div>
 
@@ -66,11 +62,15 @@
 
     var URLItems = window.location.pathname.split('/');
     var ContID = URLItems[3];
-    var APIUrl = 'http://localhost:64881/api/customerContactAPI/' + ContID;
-    var HomeUrl = 'http://localhost:64881/';
-    var CustomerURL = HomeUrl + 'Customer/Customer/' + ContID;
 
-    $('#inputForm').validate();
+    var pathArray = window.location.href.split('/');
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    var HomeUrl = protocol + '//' + host + '/';
+
+    var CustomerAPIURL = HomeUrl + 'api/customerAPI/';
+    var APIUrl = HomeUrl + 'api/customerContactAPI/' + ContID;
+    var CustomerURL = HomeUrl + 'Customer/Customer/';
 
     $(document).ready(function () {
         $.getJSON(APIUrl, function (jd) {
@@ -84,8 +84,20 @@
 
         });
 
-        $('#btnEdit').click(function () {
+        $.getJSON(APIUrl, function (jd) {
 
+            json = jd;
+            console.log(json);
+
+            $('#inName').val(json.Name);
+            $('#inEmail').val(json.Email);
+            $('#inContact').val(json.ContactNumber);
+
+        });
+
+        $('#inputForm').on('submit',function (e) {
+
+            e.preventDefault();
             var Name = $('#inName').val();
             var Email = $('#inEmail').val();
             var ContactNo = $('#inContact').val();
@@ -98,14 +110,13 @@
                 data: Contact,
                 success: function (result) {
                     alert('Contact Edited');
-                    window.location.replace(CustomerURL);
+                    window.location.replace(HomeUrl);
                 },
                 error: function (result) {
                     alert('Fail');
-                    window.location.replace(CustomerURL);
+                    window.location.replace(HomeUrl);
                 }
             });
-            //});
         });
     });
 </script>

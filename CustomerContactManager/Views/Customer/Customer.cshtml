@@ -85,11 +85,15 @@
 
 <script>
     var json;
-
     var URLItems = window.location.pathname.split('/');
+   
+    var pathArray = window.location.href.split('/');
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    var HomeUrl = protocol + '//' + host + '/';
+
     var CustID = URLItems[3];
-    var APIUrl = 'http://localhost:64881/api/customerAPI/' + CustID;
-    var ClientUrl = 'http://localhost:64881/';
+    var APIUrl = HomeUrl + 'api/customerAPI/' + CustID;
     var ContactURL = 'CustomerContact/CustomerContact/';
 
     $(document).ready(function () {
@@ -99,18 +103,19 @@
             $('#CustLat').text(json.Latitude);
             $('#CustLong').text(json.Longitude);
             $('#CustCreationdate').text(json.DateCreated);
-            console.log(json);
 
             var contacts = json.CustomerContacts;
-            console.log(contacts);
 
             $.each(contacts, function (index, model) {
-                var index = index + 1;
-                $('#contactTable > tbody:last').append('<tr"><td><a href="' + ClientUrl + ContactURL + model.ID + '">'
+
+                var dateArr = model.DateCreated.split('T');
+                var date = dateArr[0];
+
+                $('#contactTable > tbody:last').append('<tr"><td><a href="' + HomeUrl + ContactURL + model.ID + '">'
                     + model.Name + '</a></td><td>'
                     + model.Email + '</td><td>'
                     + model.ContactNumber + '</td><td>'
-                    + model.DateCreated + '</td></tr>');
+                    + date + '</td></tr>');
             });
 
         });
@@ -124,12 +129,9 @@
         });
 
         $('#createBtn').each(function () {
-            $(this).attr("action", $(this).attr("action") + '?CustomerID=' + CustID);
+            $(this).attr("action", $(this).attr("action") + '/' + CustID);
         });
     });
-
-
-
 </script>
 
 

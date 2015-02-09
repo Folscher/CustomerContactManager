@@ -11,7 +11,6 @@ namespace CustomerContactManager.Controllers
 {
     public class CustomerAPIController : ApiController
     {
-        // GET: api/Customer
         public List<Customer> GetCusomters()
         {
             CustomerContactManagerContext cx = new CustomerContactManagerContext();
@@ -24,7 +23,6 @@ namespace CustomerContactManager.Controllers
             return custs;
         }
 
-        // GET: api/Customer/5
         public Customer GetCustomer(int id)
         {
             CustomerContactManagerContext cx = new CustomerContactManagerContext();
@@ -33,44 +31,47 @@ namespace CustomerContactManager.Controllers
 
             if (cust == null)
                 throw new HttpResponseException(HttpStatusCode.NotFound);
-            
-
+           
             return cust;
 
         }
 
-        // POST: api/Customer
         public void Post([FromBody]Customer customer)
         {
-            CustomerContactManagerContext cx = new CustomerContactManagerContext();
-            var customers = cx.Customers;
-            Customer cust = customers.Where(x => x.ID == customer.ID).FirstOrDefault();
-
-            if (cust == null)
+            try
             {
-                customer.DateCreated = DateTime.Now;
-                customer.DateModified = DateTime.Now;
+                CustomerContactManagerContext cx = new CustomerContactManagerContext();
+                var customers = cx.Customers;
+                Customer cust = customers.Where(x => x.ID == customer.ID).FirstOrDefault();
 
-                cx.Customers.Add(customer);
-                cx.SaveChanges();
+                if (cust == null)
+                {
+                    customer.DateCreated = DateTime.Now;
+                    customer.DateModified = DateTime.Now;
+
+                    cx.Customers.Add(customer);
+                    cx.SaveChanges();
+                }
+                else
+                {
+                    cust.DateModified = DateTime.Now;
+                    cust.Name = customer.Name;
+                    cust.Longitude = customer.Longitude;
+                    cust.Latitude = customer.Latitude;
+
+                    cx.SaveChanges();
+                }
             }
-            else
+            catch (Exception e)
             {
-                cust.DateModified = DateTime.Now;
-                cust.Name = customer.Name;
-                cust.Longitude = customer.Longitude;
-                cust.Latitude = customer.Latitude;
-
-                cx.SaveChanges();
+                string test = "";
             }
         }
 
-        // PUT: api/Customer/5
         public void Put(int id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Customer/5
         public void Delete(int id)
         {
             try

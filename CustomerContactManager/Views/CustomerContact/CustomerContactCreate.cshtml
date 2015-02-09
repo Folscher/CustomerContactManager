@@ -3,11 +3,13 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<h2>Create Contact</h2>
+
 <div class="row">
-    <div class="col-lg-7 col-xs-7">
-        <h3>Create Contact For Customer: </h3>
+    <div class="col-lg-5 col-xs-5">
+        <h3>Create New Contact For Customer: </h3>
     </div>
-    <div class="col-lg-3 col-xs-3">
+    <div class="col-lg-2 col-xs-2">
         <h3 id="CustName"></h3>
     </div>
 </div>
@@ -15,85 +17,90 @@
 <div class="container">
 
     <br />
-
-    <div class="row">
-        <div class="form-group">
-            <label class="control-label col-lg-2">Name</label>
-            <div class="col-md-10">
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inName" placeholder="Customer Name" type="text" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+    <form id="inputForm">
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-lg-2">Name</label>
+                <div class="col-md-10">
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inName" placeholder="Contact Name" type="text" minlength="2" required />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <br />
+        <br />
 
-    <div class="row">
-        <div class="form-group">
-            <label class="control-label col-lg-2">Email</label>
-            <div class="col-md-10">
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inEmail" placeholder="Email" type="text" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-lg-2">Email</label>
+                <div class="col-md-10">
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inEmail" placeholder="Email" type="email" required />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <br />
+        <br />
 
-    <div class="row">
-        <div class="form-group">
-            <label class="control-label col-lg-2">Customer Number</label>
-            <div class="col-md-10">
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inContact" placeholder="Customer Contact" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-lg-2">Customer Number</label>
+                <div class="col-md-10">
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inContact" placeholder="Contact Number" type="number" minlength="10" required />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <br />
+        <br />
 
-    <div class="row">
-        <div class="col-lg-3 col-xs-3">
-            <button id="btnCreate">Create Customer Contact</button>
-        </div>
-    </div>
+        <input type="submit" value="Create New Contact">
 
+    </form>
+        <br />
 </div>
 
 <script>
     var json;
 
-    //var URLItems = window.location.pathname.split('/');
-    //var ContID = URLItems[3];
-    var APIUrl = 'http://localhost:64881/api/customerContactAPI/';
-    var HomeUrl = 'http://localhost:64881/';
-    var CustomerURL = HomeUrl + 'Customer/Customer/' + ContID;
-    var CustomerID = '';
+    var URLItems = window.location.pathname.split('/');
+    var CustID = URLItems[3];
 
+    var pathArray = window.location.href.split('/');
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    var HomeUrl = protocol + '//' + host + '/';
+
+    var APIUrl = HomeUrl + 'api/customerContactAPI/';
+    var CustomerAPIUrl = HomeUrl + 'api/customerAPI/' + CustID;;
+    var CustomerURL = HomeUrl + 'Customer/Customer/' + CustID;
+    var CustomerID = '';
+    var CustomerName = '';
     
     $(document).ready(function () {
-        $.getJSON(APIUrl, function (jd) {
+        $.getJSON(CustomerAPIUrl, function (jd) {
             json = jd;
-            CustomerID = json.CustomerID;
-            $('#CustName').text(json.Customer.Name);
-            console.log(json);
+            CustomerID = json.ID;
+            CustomerName = json.Name;
+            $('#CustName').text(CustomerName);
+
             console.log(CustomerID);
+            console.log(CustomerName);
+
         });
     });
 
-    $('#btnCreate').click(function () {
+    $('#inputForm').on('submit',function (e) {
 
+        e.preventDefault();
         var Name = $('#inName').val();
         var Email = $('#inEmail').val();
         var ContactNo = $('#inContact').val();
 
-        var Contact = { ID: ContID, Name: Name, Email: Email, ContactNumber: ContactNo, CustomerID: CustomerID };
+        var Contact = { Name: Name, Email: Email, ContactNumber: ContactNo, CustomerID: CustomerID };
 
         $.ajax({
             url: APIUrl,
@@ -108,8 +115,6 @@
                 window.location.replace(CustomerURL);
             }
         });
-        //});
     });
 
-
-    </script>
+</script>

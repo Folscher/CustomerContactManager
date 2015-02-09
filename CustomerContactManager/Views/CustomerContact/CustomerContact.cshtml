@@ -57,9 +57,14 @@
 <script>
     var json;
     var URLItems = window.location.pathname.split('/');
-    var CustID = URLItems[3];
-    var APIUrl = 'http://localhost:64881/api/customerContactAPI/' + CustID;
-    var ClientUrl = 'http://localhost:64881';
+    var ContID = URLItems[3];
+
+    var pathArray = window.location.href.split('/');
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    var HomeUrl = protocol + '//' + host + '/';
+
+    var APIUrl = HomeUrl + 'api/customerContactAPI/' + ContID;
     var ContactURL = 'CustomerContact/CustomerContact/';
 
     $(document).ready(function () {
@@ -70,18 +75,14 @@
             $('#ContEmail').text(json.Email);
             $('#ContContactNo').text(json.ContactNumber);
             $('#ContCreationdate').text(json.DateCreated);
-            console.log(json);
         });
 
-        console.log(CustID);
-        
         $('#editBtn').each(function () {
-            $(this).attr("action", $(this).attr("action") + '/' + CustID);
+            $(this).attr("action", $(this).attr("action") + '/' + ContID);
         });
 
         $('#deleteBtn').each(function () {
-            $(this).attr("action", $(this).attr("action") + '/' + CustID);
+            $(this).attr("action", $(this).attr("action") + '/' + ContID);
         });
     });
-
 </script>

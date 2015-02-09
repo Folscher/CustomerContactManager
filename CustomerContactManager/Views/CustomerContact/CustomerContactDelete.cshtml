@@ -42,8 +42,13 @@
     var json;
     var URLItems = window.location.pathname.split('/');
     var ContID = URLItems[3];
-    var APIUrl = 'http://localhost:64881/api/customerContactAPI/' + ContID;
-    var HomeUrl = 'http://localhost:64881/';
+
+    var pathArray = window.location.href.split('/');
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    var HomeUrl = protocol + '//' + host + '/';
+
+    var APIUrl = HomeUrl + 'api/customerContactAPI/' + ContID;
     var CustomerID = '';
     var CustomerURL = HomeUrl + 'Customer/Customer/';
     var ContactURL = 'CustomerContact/CustomerContact/';
@@ -74,6 +79,4 @@
             }
         });
     });
-
-
 </script>

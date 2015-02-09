@@ -19,7 +19,7 @@
                         <th>Name</th>
                         <th>Latitude</th>
                         <th>Longitude</th>
-                        <th>Created</th>
+                        <th>Date Created</th>
                     </tr>
                 </thead>
                 <tbody id="custTableBody"></tbody>
@@ -32,31 +32,26 @@
 
 <script>
     var json;
-    var CustomerURL = '/customer/customer/';
-    var HomeUrl = 'http://localhost:64881/';
+    var HomeUrl = window.location.href;
+    var CustomerURL = HomeUrl + 'customer/customer/';
     var CustomerAPIUrl = HomeUrl + 'api/customerAPI';
 
     $(document).ready(function () {
         $.getJSON(CustomerAPIUrl, function (jd) {
-
+            console.log(HomeUrl);
             json = jd;
 
             $.each(json, function (index, model) {
+                
+                var dateArr = model.DateCreated.split('T');
+                var date = dateArr[0];
 
                 $('#custTable > tbody:last').append('<tr"><td><a href="' + CustomerURL + model.ID + '">'
                     + model.Name + '</a></td><td>'
                     + model.Latitude + '</td><td>'
                     + model.Longitude + '</td><td>'
-                    + model.DateCreated + '</td></tr>');
+                    + date + '</td></tr>');
             });
         });
-
-    });
-</script>
-
-<script>
-    $('tr').click(function () {
-        //location.href='/customer/customer/' ;
-        console.log('test');
     });
 </script>

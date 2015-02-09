@@ -8,70 +8,60 @@
 <div class="container">
 
     <br />
-
-    <div class="row">
-        <div class="form-group">
-            <label class="control-label col-lg-2">Name</label>
-            <div class="col-md-10">
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inName" placeholder="Customer Name" type="text" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+    <form id="inputForm">
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-lg-2">Name</label>
+                <div class="col-md-10">
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inName" placeholder="Customer Name" type="text" minlength="2" required />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <br />
+        <br />
 
-    <div class="row">
-        <div class="form-group">
-            <label class="control-label col-lg-2">Latitude</label>
-            <div class="col-md-10">
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLatitudeDegrees" type="number" />
-                    <span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>
-                </div>
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLatitudeMinutes" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
-                </div>
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLatitudeSeconds" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-lg-2">Latitude</label>
+                <div class="col-md-10">
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inLatitudeDegrees" placeholder="Degrees" type="number" />
+                    </div>
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inLatitudeMinutes" placeholder="Minutes" type="number" />
+                    </div>
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inLatitudeSeconds" placeholder="Seconds" type="number" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <br />
+        <br />
 
-    <div class="row">
-        <div class="form-group">
-            <label class="control-label col-md-2">Longitude</label>
-            <div class="col-md-10">
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLongitudeDegrees" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
-                </div>
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLongitudeMinutes" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
-                </div>
-                <div class="col-lg-3">
-                    <input class="text-box single-line" id="inLongitudeSeconds" type="number" />
-                    @*<span class="field-validation-valid" data-valmsg-for="Address" data-valmsg-replace="true"></span>*@
+        <div class="row">
+            <div class="form-group">
+                <label class="control-label col-md-2">Longitude</label>
+                <div class="col-md-10">
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inLongitudeDegrees" placeholder="Degrees" type="number" />
+                    </div>
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inLongitudeMinutes" placeholder="Minutes" type="number" />
+                    </div>
+                    <div class="col-lg-3">
+                        <input class="text-box single-line" id="inLongitudeSeconds" placeholder="Seconds" type="number" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <br />
+        <input type="submit" value="Edit Customer">
 
-    <div class="row">
-        <div class="col-lg-3 col-xs-3">
-            <button id="btnEdit">Edit Customer</button>
-        </div>
-    </div>
+    </form>
+<br />
 
 </div>
 
@@ -80,8 +70,13 @@
 
     var URLItems = window.location.pathname.split('/');
     var CustID = URLItems[3];
-    var APIUrl = 'http://localhost:64881/api/customerAPI/' + CustID;
-    var HomeUrl = 'http://localhost:64881/';
+
+    var pathArray = window.location.href.split('/');
+    var protocol = pathArray[0];
+    var host = pathArray[2];
+    var HomeUrl = protocol + '//' + host + '/';
+
+    var APIUrl = HomeUrl + 'api/customerAPI/' + CustID;
     var CustomerURL = HomeUrl + 'Customer/Customer/' + CustID;
 
     $(document).ready(function () {
@@ -105,8 +100,9 @@
 
         });
 
-        $('#btnEdit').click(function () {
+        $('#inputForm').on('submit',function (e) {
 
+            e.preventDefault();
             var Name = $('#inName').val();
             var Latitude = $('#inLatitudeDegrees').val() + ',' + $('#inLatitudeMinutes').val() + ',' + $('#inLatitudeSeconds').val();
             var Longitude = $('#inLongitudeDegrees').val() + ',' + $('#inLongitudeMinutes').val() + ',' + $('#inLongitudeSeconds').val();
@@ -127,7 +123,6 @@
                     window.location.replace(CustomerURL);
                 }
             });
-            //});
         });
     });
 </script>

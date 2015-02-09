@@ -71,10 +71,13 @@
         $.getJSON(APIUrl, function (jd) {
             json = jd;
             
+            var DateArray = json.DateCreated.split('T');
+            var Date = DateArray[0];
+
             $('#ContName').text(json.Name);
             $('#ContEmail').text(json.Email);
             $('#ContContactNo').text(json.ContactNumber);
-            $('#ContCreationdate').text(json.DateCreated);
+            $('#ContCreationdate').text(Date);
         });
 
         $('#editBtn').each(function () {

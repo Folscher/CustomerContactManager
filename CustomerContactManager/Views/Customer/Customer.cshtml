@@ -98,11 +98,16 @@
 
     $(document).ready(function () {
         $.getJSON(APIUrl, function (jd) {
+
             json = jd;
+
+            var DateArray = json.DateCreated.split('T');
+            var Date = DateArray[0];
+
             $('#CustName').text(json.Name);
             $('#CustLat').text(json.Latitude);
             $('#CustLong').text(json.Longitude);
-            $('#CustCreationdate').text(json.DateCreated);
+            $('#CustCreationdate').text(Date);
 
             var contacts = json.CustomerContacts;
 

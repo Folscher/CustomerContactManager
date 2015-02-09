@@ -1,3 +1,10 @@
-Things to change:
+Hello :)
 
-3. clean up jqeary
+Net een ding wat julle moet weet. Die app mag dalk n minuut of 2 neem om die eerste keet op te start, want hy moet die db maak.
+
+Onthou ook asb om die connection string te verander om aan julle sql server te konekteer. 
+
+Laat weet my of Annalise as julle iets nodig het.
+
+Sel: 076 2533 121
+Email: vermaakfc@gmail.com
